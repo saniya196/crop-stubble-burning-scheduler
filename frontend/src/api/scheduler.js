@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api/schedule',
+  baseURL: 'https://crop-stubble-burning-scheduler-2.onrender.com/api/schedule',
   timeout: 15000,
 });
 
