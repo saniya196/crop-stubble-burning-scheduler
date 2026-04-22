@@ -1,0 +1,86 @@
+# Dependencies
+node_modules/
+npm-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Frontend Build
+frontend/dist/
+frontend/build/
+frontend/.vite/
+
+# Backend - Maven
+backend/target/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/bin/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+*.sublime-workspace
+*.sublime-project
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+.eslintcache
+
+# Temporary
+*.tmp
+temp/
+tmp/
+
+# Docker
+.docker-compose.override.yml
+
+# Java
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Spring Boot
+application.properties
+application.yml
+
+# Testing
+coverage/
+.nyc_output/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Build artifacts
+dist/
+build/
+out/
