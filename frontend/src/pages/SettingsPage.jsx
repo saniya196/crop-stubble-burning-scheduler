@@ -6,7 +6,9 @@ export default function SettingsPage() {
   const {
     farms,
     budget,
-    setBudget,
+    setBudgetWithValidation,
+    budgetError,
+    setBudgetError,
     riskLevel,
     loading,
     addFarm,
@@ -17,7 +19,6 @@ export default function SettingsPage() {
 
   const { addToast } = useToast();
   const fileInputRef = useRef(null);
-  const [newBudget, setNewBudget] = useState(budget);
   const [errors, setErrors] = useState({});
 
   const validateFarm = (farm) => {
@@ -30,18 +31,9 @@ export default function SettingsPage() {
   };
 
   const handleBudgetChange = (value) => {
-    const num = parseInt(value) || 0;
-    if (num < 0) {
-      addToast('Budget cannot be negative', 'warning');
-      return;
-    }
-    setNewBudget(num);
-  };
-
-  const handleBudgetSave = () => {
-    if (newBudget !== budget) {
-      setBudget(newBudget);
-      addToast(`Budget updated to ₹${newBudget.toLocaleString()}`, 'success');
+    const isValid = setBudgetWithValidation(value);
+    if (isValid) {
+      addToast(`Budget updated to ₹${Number(value).toLocaleString()}`, 'success');
     }
   };
 
@@ -73,8 +65,7 @@ export default function SettingsPage() {
         if (!Array.isArray(data.farms)) throw new Error('Invalid farms data');
         if (typeof data.budget !== 'number') throw new Error('Invalid budget');
         setFarms(data.farms);
-        setBudget(data.budget);
-        setNewBudget(data.budget);
+        setBudgetWithValidation(data.budget);
         addToast(`Loaded ${data.farms.length} farms with budget ₹${data.budget.toLocaleString()}`, 'success');
       } catch (err) {
         addToast(`Invalid configuration file: ${err.message}`, 'error');
@@ -106,8 +97,8 @@ export default function SettingsPage() {
       { id: 'F-08', harvestDay: 12, deadline: 18 },
     ];
     setFarms(defaultFarms);
-    setBudget(15000);
-    setNewBudget(15000);
+    setBudgetWithValidation(15000);
+    setBudgetError('');
     addToast('Reset to default configuration', 'success');
   };
 
@@ -212,24 +203,25 @@ export default function SettingsPage() {
                 <label className="text-sm text-gray-600 font-semibold block mb-2">Available Budget (₹)</label>
                 <input
                   type="number"
-                  value={newBudget}
+                  value={budget}
                   onChange={(e) => handleBudgetChange(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green"
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                    budgetError ? 'border-red/50 bg-red/5 focus:ring-red/30' : 'border-gray-300 focus:ring-green/30'
+                  }`}
                   placeholder="0"
                   min="0"
                 />
               </div>
-              <button
-                onClick={handleBudgetSave}
-                disabled={newBudget === budget}
-                className="w-full px-4 py-2 bg-blue text-white rounded-lg font-semibold hover:bg-blue/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                💾 Save Budget
-              </button>
+              {budgetError && (
+                <p className="text-red text-sm font-semibold">✕ {budgetError}</p>
+              )}
+              {!budgetError && budget > 0 && (
+                <p className="text-green text-sm font-semibold">✓ Budget valid</p>
+              )}
             </div>
             <div className="mt-4 p-3 bg-gray-50 rounded-lg">
               <p className="text-sm text-gray-600 mb-1">Current Budget</p>
-              <p className="text-3xl font-bold text-green">₹{newBudget.toLocaleString()}</p>
+              <p className="text-3xl font-bold text-green">₹{budget.toLocaleString()}</p>
             </div>
           </div>
 

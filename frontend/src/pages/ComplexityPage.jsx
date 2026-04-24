@@ -3,7 +3,7 @@ import { useScheduler } from '../hooks/useScheduler';
 import ComplexityTab from '../components/tabs/ComplexityTab';
 
 export default function ComplexityPage() {
-  const { results, runAllAlgorithms } = useScheduler();
+  const { budget, results, runAllAlgorithms } = useScheduler();
 
   useEffect(() => {
     if (!results.greedy) {
@@ -13,9 +13,15 @@ export default function ComplexityPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-4xl font-bold mb-2">Algorithm Complexity Analysis</h1>
-        <p className="text-gray-500">Compare time and space complexity of different algorithms</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl font-bold mb-2">📈 Complexity Analysis</h1>
+          <p className="text-gray-500">Time and space complexity of each algorithm</p>
+        </div>
+        <div className="bg-surface rounded-lg border border-ink/10 p-4 shadow-soft">
+          <p className="text-sm text-gray-600 mb-1">Current Budget</p>
+          <p className="text-2xl font-bold text-green">₹{budget.toLocaleString()}</p>
+        </div>
       </div>
 
       <div className="bg-surface rounded-xl border border-ink/10 shadow-soft p-6">

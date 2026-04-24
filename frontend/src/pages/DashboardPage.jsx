@@ -6,7 +6,7 @@ import KPIStrip from '../components/ui/KPIStrip';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const { farms, budget, results, loading, error, runAllAlgorithms } = useScheduler();
+  const { farms, budget, setBudgetWithValidation, budgetError, results, loading, error, runAllAlgorithms } = useScheduler();
   const { addToast } = useToast();
 
   useEffect(() => {
@@ -80,9 +80,23 @@ export default function DashboardPage() {
               <span className="text-gray-600 font-medium">Total Farms</span>
               <span className="font-bold text-lg text-ink">{farms.length}</span>
             </div>
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <span className="text-gray-600 font-medium">Available Budget</span>
-              <span className="font-bold text-lg text-green">₹{budget.toLocaleString()}</span>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <label className="text-gray-600 font-medium block mb-2">Available Budget (₹)</label>
+              <input
+                type="number"
+                value={budget}
+                onChange={(e) => setBudgetWithValidation(e.target.value)}
+                placeholder="Enter budget amount"
+                className={`w-full px-3 py-2 border rounded-md font-bold text-lg transition ${
+                  budgetError ? 'border-red/50 bg-red/5 focus:ring-red/30' : 'border-gray-300 bg-white focus:ring-green/30'
+                } focus:outline-none focus:ring-2`}
+              />
+              {budgetError && (
+                <p className="text-red text-sm font-semibold mt-2">✕ {budgetError}</p>
+              )}
+              {!budgetError && budget > 0 && (
+                <p className="text-green text-sm font-semibold mt-2">✓ Budget set to ₹{budget.toLocaleString()}</p>
+              )}
             </div>
             <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
               <span className="text-gray-600 font-medium">Best Algorithm</span>
