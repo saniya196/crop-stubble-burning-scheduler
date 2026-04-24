@@ -10,12 +10,12 @@ export default function DashboardPage() {
   const { addToast } = useToast();
 
   useEffect(() => {
-    if (!results.greedy && !loading.all) {
-      runAllAlgorithms().catch((err) => {
-        addToast('Failed to run algorithms', 'error');
-      });
-    }
-  }, []);
+  if (!results.greedy && !loading.all) {
+    runAllAlgorithms().catch((err) => {
+      addToast('Failed to run algorithms', 'error');
+    });
+  }
+}, []);
 
   const allResults = useMemo(
     () => [results.greedy, results.dp, results.backtrack].filter(Boolean),
