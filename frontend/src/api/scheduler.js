@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-const baseURL = 'https://crop-stubble-burning-scheduler-2.onrender.com/api/schedule';
+const configuredApiUrl =
+  import.meta.env.VITE_API_URL || 'https://crop-stubble-burning-scheduler-2.onrender.com';
+
+const normalizedApiUrl = configuredApiUrl.replace(/\/+$/, '');
+const baseURL = normalizedApiUrl.endsWith('/api/schedule')
+  ? normalizedApiUrl
+  : `${normalizedApiUrl}/api/schedule`;
 
 const api = axios.create({
   baseURL,
