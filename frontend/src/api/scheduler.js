@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// Use environment variable or default to local backend in development
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/schedule';
+const baseURL = 'https://crop-stubble-burning-scheduler-2.onrender.com/api/schedule';
 
 const api = axios.create({
   baseURL,
