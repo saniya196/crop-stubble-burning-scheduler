@@ -261,12 +261,7 @@ docker-compose down
 
 ### 🔗 Deployed Link
 
-If you have deployed this project, add your live URL here so users can access the running app:
-
 Live demo: https://crop-stubble-burning-scheduler.vercel.app/
-
-Replace the above URL with your actual deployment link (for example, a Netlify, Vercel, or Docker-hosted URL).
-
 ---
 
 ## 📚 API Documentation
