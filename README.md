@@ -206,7 +206,7 @@ BurningScheduler/
 
 ### **Clone Repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/burning-scheduler.git
+git clone https://github.com/saniya196/crop-stubble-burning-scheduler.git
 cd BurningScheduler
 ```
 
@@ -258,6 +258,14 @@ docker-compose down
 - **Email**: farmer@example.com
 - **Password**: password123
 - Click "Demo Login" for quick access
+
+### 🔗 Deployed Link
+
+If you have deployed this project, add your live URL here so users can access the running app:
+
+Live demo: https://crop-stubble-burning-scheduler.vercel.app/
+
+Replace the above URL with your actual deployment link (for example, a Netlify, Vercel, or Docker-hosted URL).
 
 ---
 
@@ -398,6 +406,14 @@ spring.application.name=stubblesched
 ### **Code Standards**
 - Follow existing code style
 - Add tests for new features
+
+---
+
+## 📝 License
+
+This repository does not include a license. All rights are reserved by the repository owner. No permission to copy, modify, distribute, or commercially use the code is granted through this repository.
+
+If you need to use or share parts of this project, please contact the repository owner to request explicit permission.
 - Update documentation
 - Use descriptive commit messages
 
@@ -427,12 +443,6 @@ spring.application.name=stubblesched
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see LICENSE file for details.
-
----
-
 ## 👨‍💻 Author
 
 **StubbleSched Development Team**
@@ -444,7 +454,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 ## 📞 Support
 
 For issues, questions, or suggestions:
-1. Check existing [GitHub Issues](https://github.com/YOUR_USERNAME/burning-scheduler/issues)
+1. Check existing [GitHub Issues](https://github.com/saniya196/burning-scheduler/issues)
 2. Create a new issue with detailed description
 3. Include screenshots or error logs
 
