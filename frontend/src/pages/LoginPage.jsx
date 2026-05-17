@@ -4,11 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 
 export default function LoginPage() {
+  const [mode, setMode] = useState('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitError, setSubmitError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, signup } = useAuth();
   const { addToast } = useToast();
   const navigate = useNavigate();
 
@@ -33,9 +34,17 @@ export default function LoginPage() {
     }
 
     setLoading(true);
-    const result = await login(email.trim(), password);
+    const result = mode === 'login'
+      ? await login(email.trim(), password)
+      : await signup(email.trim(), password);
+
     if (result.success) {
-      addToast(`Welcome back, ${email.split('@')[0]}!`, 'success');
+      addToast(
+        mode === 'login'
+          ? `Welcome back, ${email.split('@')[0]}!`
+          : 'Account created successfully!',
+        'success'
+      );
       navigate('/');
       return;
     }
@@ -46,6 +55,7 @@ export default function LoginPage() {
 
   const handleDemoLogin = async () => {
     setLoading(true);
+    setMode('login');
     const result = await login('farmer@example.com', 'password123');
     if (result.success) {
       addToast('Demo account loaded successfully!', 'success');
@@ -69,7 +79,23 @@ export default function LoginPage() {
 
         {/* Login Card */}
         <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <h2 className="text-2xl font-bold text-ink mb-6">Welcome Back</h2>
+          <div className="flex items-start justify-between gap-4 mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-ink">{mode === 'login' ? 'Welcome Back' : 'Create Account'}</h2>
+              <p className="text-sm text-gray-500 mt-1">
+                {mode === 'login'
+                  ? 'Log in to continue to your dashboard.'
+                  : 'Sign up if you do not already have an account.'}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
+              className="text-sm font-semibold text-green hover:text-green/80 transition whitespace-nowrap"
+            >
+              {mode === 'login' ? 'Sign up instead' : 'Back to login'}
+            </button>
+          </div>
 
           {submitError && (
             <div className="mb-4 p-3 bg-red/10 border border-red/30 rounded-lg text-red text-sm font-semibold flex items-start gap-2">
@@ -109,7 +135,7 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full px-4 py-3 bg-green text-white font-semibold rounded-lg hover:bg-green/90 transition disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              {loading ? '⟳ Logging in...' : '🔓 Login'}
+              {loading ? (mode === 'login' ? '⟳ Logging in...' : '⟳ Signing up...') : mode === 'login' ? '🔓 Login' : '✨ Sign Up'}
             </button>
           </form>
 
@@ -128,6 +154,14 @@ export default function LoginPage() {
             className="w-full px-4 py-3 bg-gray-100 text-ink font-semibold rounded-lg hover:bg-gray-200 transition border border-gray-300 disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {loading ? '⟳ Loading...' : '🚀 Demo Login'}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setMode('signup')}
+            className="w-full mt-3 px-4 py-3 bg-ink/5 text-ink font-semibold rounded-lg hover:bg-ink/10 transition border border-gray-200 flex items-center justify-center gap-2"
+          >
+            Don’t have an account? Sign up
           </button>
 
           <div className="mt-6 p-3 bg-blue/5 border border-blue/20 rounded-lg">
