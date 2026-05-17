@@ -16,9 +16,9 @@ import SettingsPage from './pages/SettingsPage';
 
 const AppLayout = () => {
   return (
-    <div className="min-h-screen bg-bg-light text-ink flex">
+    <div className="min-h-screen bg-bg-light text-ink md:flex overflow-x-hidden">
       <Navigation />
-      <main className="flex-1 ml-0 md:ml-64 p-4 md:p-8 overflow-y-auto">
+      <main className="flex-1 ml-0 md:ml-64 pt-16 md:pt-0 p-4 md:p-8 overflow-y-auto min-h-screen">
         <div className="max-w-7xl mx-auto">
           <Routes>
             <Route path="/" element={<DashboardPage />} />

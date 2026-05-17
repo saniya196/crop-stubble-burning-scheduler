@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { loginUser, signupUser } from '../api/auth';
 
 const AuthContext = createContext();
 
@@ -19,23 +20,49 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = (email, password) => {
-    // Simple client-side validation
-    if (!email || !password) {
-      return { success: false, error: 'Email and password are required' };
-    }
-
-    // Create user object
-    const newUser = {
-      id: Math.random().toString(36).substr(2, 9),
-      email,
-      name: email.split('@')[0],
+  const persistUser = (profile) => {
+    const nextUser = {
+      ...profile,
       loginTime: new Date().toISOString(),
     };
 
-    setUser(newUser);
-    localStorage.setItem('stubblesched-user', JSON.stringify(newUser));
-    return { success: true };
+    setUser(nextUser);
+    localStorage.setItem('stubblesched-user', JSON.stringify(nextUser));
+    return nextUser;
+  };
+
+  const login = async (email, password) => {
+    try {
+      const response = await loginUser({ email, password });
+      if (!response.data?.success) {
+        return { success: false, error: response.data?.message || 'Unable to login' };
+      }
+
+      persistUser(response.data.user);
+      return { success: true, user: response.data.user };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || 'Login failed. Please try again.',
+      };
+    }
+  };
+
+  const signup = async (email, password, name) => {
+    try {
+      const response = await signupUser({ email, password, name });
+      if (!response.data?.success) {
+        return { success: false, error: response.data?.message || 'Unable to signup' };
+      }
+
+      persistUser(response.data.user);
+      return { success: true, user: response.data.user };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || 'Signup failed. Please try again.',
+      };
+    }
   };
 
   const logout = () => {
@@ -44,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

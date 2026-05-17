@@ -9,6 +9,10 @@
   background: #f0f4f0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -17,10 +21,15 @@ body {
     radial-gradient(circle at 92% 10%, rgba(37, 99, 235, 0.06), transparent 25%),
     #f0f4f0;
   color: #111827;
+  overflow-x: hidden;
 }
 
 * {
   box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 .scrollbar-thin::-webkit-scrollbar {
