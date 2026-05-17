@@ -113,7 +113,7 @@ export default function SettingsPage() {
         {/* Farm Management */}
         <div className="lg:col-span-2 rounded-xl border border-ink/10 bg-surface p-6 shadow-soft">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-semibold">🚜 Farm Management</h2>
+            <h2 className="text-2xl font-semibold">🚜 What are they?</h2>
             <span className="text-sm bg-green/20 text-green px-3 py-1 rounded-full font-semibold">{farms.length} farms</span>
           </div>
           
@@ -140,7 +140,8 @@ export default function SettingsPage() {
                           {farmErrors.id && <p className="text-red text-xs">{farmErrors.id}</p>}
                         </div>
                         <div className="flex gap-1">
-                          <div>
+                          <div className="space-y-1">
+                            <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Harvest Day</p>
                             <input
                               type="number"
                               value={farm.harvestDay}
@@ -151,7 +152,8 @@ export default function SettingsPage() {
                             />
                             {farmErrors.harvest && <p className="text-red text-xs">Invalid</p>}
                           </div>
-                          <div>
+                          <div className="space-y-1">
+                            <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Deadline</p>
                             <input
                               type="number"
                               value={farm.deadline}
