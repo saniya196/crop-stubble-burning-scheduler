@@ -449,7 +449,7 @@ If you need to use or share parts of this project, please contact the repository
 ## 📞 Support
 
 For issues, questions, or suggestions:
-1. Check existing [GitHub Issues](https://github.com/saniya196/burning-scheduler/issues)
+1. Check existing [GitHub Issues](https://github.com/saniya196/crop-stubble-burning-scheduler/issues)
 2. Create a new issue with detailed description
 3. Include screenshots or error logs
 
