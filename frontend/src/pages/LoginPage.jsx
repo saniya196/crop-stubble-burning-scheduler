@@ -53,20 +53,6 @@ export default function LoginPage() {
     setLoading(false);
   };
 
-  const handleDemoLogin = async () => {
-    setLoading(true);
-    setMode('login');
-    const result = await login('farmer@example.com', 'password123');
-    if (result.success) {
-      addToast('Demo account loaded successfully!', 'success');
-      navigate('/');
-      return;
-    }
-
-    setSubmitError(result.error);
-    setLoading(false);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-green to-blue flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -139,23 +125,6 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or try demo</span>
-            </div>
-          </div>
-
-          <button
-            onClick={handleDemoLogin}
-            disabled={loading}
-            className="w-full px-4 py-3 bg-gray-100 text-ink font-semibold rounded-lg hover:bg-gray-200 transition border border-gray-300 disabled:opacity-50 flex items-center justify-center gap-2"
-          >
-            {loading ? '⟳ Loading...' : '🚀 Demo Login'}
-          </button>
-
           <button
             type="button"
             onClick={() => setMode('signup')}
@@ -163,12 +132,6 @@ export default function LoginPage() {
           >
             Don’t have an account? Sign up
           </button>
-
-          <div className="mt-6 p-3 bg-blue/5 border border-blue/20 rounded-lg">
-            <p className="text-xs font-mono text-gray-700 text-center">
-              <strong>Demo:</strong> farmer@example.com / password123
-            </p>
-          </div>
         </div>
 
         {/* Footer */}

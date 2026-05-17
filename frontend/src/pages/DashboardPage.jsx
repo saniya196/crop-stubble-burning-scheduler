@@ -9,6 +9,15 @@ export default function DashboardPage() {
   const { farms, budget, setBudgetWithValidation, budgetError, results, loading, error, runAllAlgorithms } = useScheduler();
   const { addToast } = useToast();
 
+  const handleRunAll = async () => {
+    try {
+      await runAllAlgorithms();
+      navigate('/results');
+    } catch (err) {
+      addToast('Failed to run algorithms', 'error');
+    }
+  };
+
   useEffect(() => {
   if (!results.greedy && !loading.all) {
     runAllAlgorithms().catch((err) => {
@@ -57,7 +66,7 @@ export default function DashboardPage() {
           <p className="text-gray-500">Welcome to Crop Stubble Burning Scheduler</p>
         </div>
         <button
-          onClick={() => runAllAlgorithms()}
+          onClick={handleRunAll}
           disabled={loading.all}
           className="px-6 py-3 bg-green text-white font-semibold rounded-lg hover:bg-green/90 transition disabled:opacity-50 flex items-center gap-2"
         >
